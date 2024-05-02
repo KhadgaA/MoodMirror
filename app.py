@@ -84,7 +84,11 @@ def preprocess(y,sr ):
     X = np.concatenate((f1, f2, f3), axis = 1)
     # Pad the array
     padding_rows = 448-len(X)
-    X = np.vstack(( X, np.zeros((padding_rows, 15))))
+        
+    if padding_rows < 0:
+        X = X[:448, :15]
+    if padding_rows > 0:
+        X = np.vstack(( X, np.zeros((padding_rows, 15))))
 
     X_3D = np.expand_dims(X, axis=0)
     
